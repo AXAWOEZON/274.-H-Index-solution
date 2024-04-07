@@ -1,0 +1,57 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+class Solution {
+public:
+    int hIndex(vector<int>& citations) {
+        // Создаем копию вектора цитирований для сортировки
+        // Create a copy of the citation vector for sorting
+        vector<int> index = citations;
+
+        // Сортируем цитирования в порядке убывания
+        // Sort citations in descending order
+        sort(index.begin(), index.end(), std::greater<int>());
+
+        // Инициализируем индекс Хирша
+        // Initialize the Hirsch index
+        int h = 0;
+
+        // Проходим по отсортированному вектору цитирований
+        // Walk through the sorted vector of citations
+        for (int i = 0; i < index.size(); i++) {
+            // Если текущее цитирование больше или равно номеру публикации,
+            // If the current citation is greater than or equal to the publication number,
+            // increase the Hirsch index
+            if (index[i] >= i + 1) {
+                h = i + 1;
+            }
+            else {
+                // Иначе прекращаем проход, так как условие для индекса Хирша не выполняется
+                // Otherwise, we stop the passage, since the condition for the Hirsch index is not satisfied
+                break;
+            }
+        }
+        // Return the found Hirsch index
+        // Возвращаем найденный индекс Хирша
+        return h;
+    }
+};
+int main()
+{
+    // создаем переменную s по которой будем обращаться к ооп
+    // create a variable s by which we will access OOP
+    Solution s;
+
+    // создаем массив который будет для проверки
+    // create an array that will be used for checking
+    vector<int> i = { 3,0,6,1,5 };
+
+    // Выводим
+    // Output
+    cout << s.hIndex(i) << endl;
+
+    return 0;
+}
